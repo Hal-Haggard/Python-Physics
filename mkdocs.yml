@@ -45,14 +45,14 @@ extra_javascript:
 
 nav:
   - E&amp;M Notebooks: 
-    - Plotting Vector Fields: notebooksEM/PythonJupyterPlottingVectorFields.md
-    - Plotting Vector Fields 2: notebooksEM/PythonJupyterPlottingVectorFields2.md
-    - "Numerial ODEs: Euler's Method": notebooksEM/EulersMethod.md
-    - Discretization in 1D: notebooksEM/Discretization1D.md
-    - Relaxation With Linear Algebra: notebooksEM/RelaxationWithLinearAlgebra.md
-    - 2D Relaxation: notebooksEM/2DRelaxation.md
-    - Refining Relaxation: notebooksEM/RefiningRelaxation.md
-    - Boundary Conditions: notebooksEM/BoundaryConditions.md
+    - Plotting Vector Fields: ElecMag/PythonJupyterPlottingVectorFields.md
+    - Plotting Vector Fields 2: ElecMag/PythonJupyterPlottingVectorFields2.md
+    - "Numerial ODEs: Euler's Method": ElecMag/EulersMethod.md
+    - Discretization in 1D: ElecMag/Discretization1D.md
+    - Relaxation With Linear Algebra: ElecMag/RelaxationWithLinearAlgebra.md
+    - 2D Relaxation: ElecMag/2DRelaxation.md
+    - Refining Relaxation: ElecMag/RefiningRelaxation.md
+    - Boundary Conditions: ElecMag/BoundaryConditions.md
     
 copyright: |
   &copy; 2024 <a href="https://github.com/Hal-Haggard" target="_blank" rel="noopener">Hal Haggard</a>
