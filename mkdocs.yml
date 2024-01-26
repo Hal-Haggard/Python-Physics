@@ -22,7 +22,12 @@ theme:
         name: Switch to light mode
       primary: blue grey
       accent: lime
-
+repo_name: 'Hal-Haggard/Python-Physics'
+repo_url: 'https://github.com/Hal-Haggard/pythonphysics'
+extra:
+  analytics:
+    provider: google
+    property: G-700JX27T4T
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
