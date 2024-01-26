@@ -1,0 +1,940 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../RelaxationWithLinearAlgebra/">
+      
+      
+        <link rel="next" href="../RefiningRelaxation/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
+    
+    
+      
+        <title>2D Relaxation - Python Physics</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-700JX27T4T"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-700JX27T4T",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-700JX27T4T",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2d-relaxation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Python Physics" class="md-header__button md-logo" aria-label="Python Physics" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Python Physics
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2D Relaxation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Hal-Haggard/pythonphysics" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hal-Haggard/Python-Physics
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Python Physics" class="md-nav__button md-logo" aria-label="Python Physics" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Python Physics
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Hal-Haggard/pythonphysics" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hal-Haggard/Python-Physics
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    E&amp;M Notebooks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            E&amp;M Notebooks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PythonJupyterPlottingVectorFields/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotting Vector Fields
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PythonJupyterPlottingVectorFields2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plotting Vector Fields 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EulersMethod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Numerial ODEs: Euler's Method
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Discretization1D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Discretization in 1D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RelaxationWithLinearAlgebra/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Relaxation With Linear Algebra
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2D Relaxation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2D Relaxation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#physical-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-laplace-equation-in-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Laplace Equation in 2D
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructing-lattices-in-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructing lattices in 2d
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boundary-values-in-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boundary Values in 2D
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-structure-of-the-linear-algebra-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Structure of the Linear Algebra Problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solving-and-plotting-laplaces-equation-on-a-2d-lattice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solving and Plotting Laplace's Equation on a 2D Lattice
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RefiningRelaxation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Refining Relaxation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../BoundaryConditions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boundary Conditions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#physical-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-laplace-equation-in-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Laplace Equation in 2D
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructing-lattices-in-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructing lattices in 2d
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boundary-values-in-2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boundary Values in 2D
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-structure-of-the-linear-algebra-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Structure of the Linear Algebra Problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solving-and-plotting-laplaces-equation-on-a-2d-lattice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solving and Plotting Laplace's Equation on a 2D Lattice
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="2d-relaxation">2D Relaxation</h1>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">linalg</span>
+</code></pre></div>
+<p>The techniques for doing relaxation that you've learned over the last two notebooks generalize nicely to two-dimensions (2D). Further generalization to higher dimensions then proceeds similarly. </p>
+<h2 id="physical-setup">Physical Setup</h2>
+<p>For some time we will focus on numerically solving a single physical problem. In electrostatics the easiest way to realize this problem is with an idealized three-dimensional setup, however the symmetry along the <span class="arithmatex">\(z\)</span>-axis will make it so that we really only need to solve a 2D problem. </p>
+<p>The setup is as follows: Three infinitely-long grounded metal plates, at <span class="arithmatex">\(x=0\)</span>, <span class="arithmatex">\(x=1\)</span> and <span class="arithmatex">\(y = 0\)</span>, are connected at <span class="arithmatex">\(y = 1\)</span> by a metal strip maintained at a  potential <span class="arithmatex">\(V(x,y=1) = \sin(\pi x)\)</span> (a thin layer of insulation at each corner prevents them from shorting out). Find the potential inside the resulting rectangular pipe. The equation that dictates the potential is the 2D Laplace equation, to which we now turn.</p>
+<h2 id="the-laplace-equation-in-2d">The Laplace Equation in 2D</h2>
+<p>The 2D Laplace equation is </p>
+<div class="arithmatex">\[
+\nabla^2 V = \frac{\partial^2 V}{\partial x^2}+\frac{\partial^2 V}{\partial y^2} = 0.
+\]</div>
+<p>Just as in 1D, this equation can be discretized by returning to the definition of the partial derivatives <span class="arithmatex">\(\partial/\partial x\)</span> and <span class="arithmatex">\(\partial/\partial y\)</span>. However, in this case it is useful to allow yourself to have different step sizes in the <span class="arithmatex">\(x\)</span>- and in the <span class="arithmatex">\(y\)</span>-directions. To this end, instead of using <span class="arithmatex">\(h\)</span> to indicate a numerical step size, let <span class="arithmatex">\(\Delta x\)</span> represent a single step in the <span class="arithmatex">\(x\)</span>-direction and similarly for <span class="arithmatex">\(\Delta y\)</span>.  In the numerics below we will often give these step sizes the same value, e.g. <span class="arithmatex">\(\Delta x = \Delta y =1\)</span>, but by setting the calculation up this way, you are free not to. </p>
+<p>As before, it is also useful to setup a shorthand for the potential evaluated on a lattice point. In 2D a given lattice point will have <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> coordinates. Define these coordinates to be <span class="arithmatex">\(x_i\)</span> and <span class="arithmatex">\(y_j\)</span>, where the subscript <span class="arithmatex">\(i\)</span> means that <span class="arithmatex">\(x_i\)</span> is <span class="arithmatex">\(i\)</span> steps to the right of the origin, and with <span class="arithmatex">\(i\)</span> and <span class="arithmatex">\(j\)</span> both integers. In other words <span class="arithmatex">\(x_i = i\cdot \Delta x\)</span>. Similarly, <span class="arithmatex">\(y_j = j \cdot \Delta y\)</span> is <span class="arithmatex">\(j\)</span> steps above the origin. Finally, we define the potential <span class="arithmatex">\(V\)</span> at the lattice point <span class="arithmatex">\((x_i, y_j)\)</span> to be <span class="arithmatex">\(V(x_i, y_j) \equiv V_{i,j}\)</span>. The comma in the subscript of <span class="arithmatex">\(V_{i,j}\)</span> simply acts to separate the <span class="arithmatex">\(i\)</span> and <span class="arithmatex">\(j\)</span> values.</p>
+<p><b>Exercise (a):</b> With the conventions just described, discretize <span class="arithmatex">\(\nabla^2V\)</span> and write out the discrete Laplace equation. [<em>Ans</em>:</p>
+<div class="arithmatex">\[
+\frac{V_{i+1,j}-2V_{i,j}+V_{i-1,j}}{\Delta x^2} + \frac{V_{i,j+1}-2V_{i,j}+V_{i,j-1}}{\Delta y^2} =0.]
+\]</div>
+<h2 id="constructing-lattices-in-2d">Constructing lattices in 2d</h2>
+<p>The conventions described above go a long way to describing 2D lattices, but we still need a way to represent them in Python. Visualizing the lattice will be invaluable as well. </p>
+<p>Fortunately, the NumPy meshgrid function, already introduced in the notebook on plotting vector fields, does a lot of the work for us. The vector field notebook took a 'black box' approach to meshgrid, using it without worrying much about understanding it. Here we will begin to better understand how this function works. </p>
+<p>The meshrid function works in any number of dimensions, but we will focus on the 2D case. In this case meshgrid accepts two arrays as inputs, treats them as lattices in the <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> directions, and returns a 2D lattice of points in the <span class="arithmatex">\(xy\)</span> plane. For example, if you supply the arrays [0,1,2] and [0,1,2] as inputs, then it returns two 3x3 arrays consisting of the <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> coordinates of the 9 points of the 2D lattice formed by the Cartesian product of the two input arrays. This is easier to see than to read:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span> 
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> 
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../img/2DRelaxation_10_0.png" /></p>
+<p>This example shows how well meshgrid and matplotlib fit together. And, once you've seen a picture of it, it is easier to parse out how Python does it. Printing out the two arrays yields:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[[0. 1. 2.]
+ [0. 1. 2.]
+ [0. 1. 2.]]
+[[0. 0. 0.]
+ [1. 1. 1.]
+ [2. 2. 2.]]
+</code></pre></div>
+<p>The first array stores the <span class="arithmatex">\(x\)</span>-coordinates of each row of points in the rows of an array, and similarly for <span class="arithmatex">\(y\)</span>-coordinates in the 2nd array. In fact, by looking at the 2nd array, we can see that the first row of the array corresponds to the point lowest on the diagram, the 2nd row to the middle points, and the 3rd to the uppermost points. </p>
+<p>Implicit in these arrays, then, is a way of moving through the points of the lattice that we will use in our code too. The elements of the arrays begin with the lower left point of the lattice, move along the bottom row, from left to right, shift up to the middle row, proceed left to right again, and finally do the same along the uppermost row. Expressing this in terms of the potential <span class="arithmatex">\(V_{i,j}\)</span> of the last section, we begin with <span class="arithmatex">\(V_{0,0}\)</span>, go to <span class="arithmatex">\(V_{0,1}\)</span> and <span class="arithmatex">\(V_{0,2}\)</span>, then go to <span class="arithmatex">\(V_{1,0}\)</span>, <span class="arithmatex">\(V_{1,1}\)</span>, and <span class="arithmatex">\(V_{1,2}\)</span>, and finally visit <span class="arithmatex">\(V_{2,0}\)</span>, <span class="arithmatex">\(V_{2,1}\)</span>, and <span class="arithmatex">\(V_{2,2}\)</span>.  You may find it helpful to have the mental image of an arrow zig-zagging from one row of lattice points to the next, as in the plot below:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span> 
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> 
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">#The annotate command allows you to add things (arrows, text, etc) on top of a plot</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc,angleA=0,angleB=0,armA=460,armB=0,rad=30&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc,angleA=0,angleB=0,armA=460,armB=0,rad=30&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.94</span><span class="p">,</span> <span class="mf">1.94</span><span class="p">),</span> <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.94</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../img/2DRelaxation_14_0.png" /></p>
+<h2 id="boundary-values-in-2d">Boundary Values in 2D</h2>
+<p>Before moving on to solving Laplace's equation in 2D, it is useful to think again about boundary values. As before we will focus on the simplest case, where boundary values are specified all the way around the boundary of the 2D region. These are called Dirichlet boundary conditions, and contrast with problems where you specify the derivative of the potential on one or more boundaries; the latter are called Neumann boundary conditions and will be taken up in a future notebook.</p>
+<p>The figure below depicts a 5x5 lattice. Highlighted in blue are the internal lattice points, where the potential <span class="arithmatex">\(V_{i,j}\)</span> is completely unknown. In magenta, are boundary lattice points where the potential is given. In black, there is a set of corner lattice points, which you could consider 'boundary lattice points', but which won't come into any of the equations and, therefore, are easier to ignore. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">xin</span><span class="p">,</span> <span class="n">yin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span> <span class="c1">#Setup figure</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s2">&quot;-k&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s2">&quot;-k&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s2">&quot;mo&quot;</span><span class="p">,</span><span class="n">xin</span><span class="p">,</span><span class="n">yin</span><span class="p">,</span><span class="s2">&quot;bo&quot;</span><span class="p">,</span><span class="n">xc</span><span class="p">,</span><span class="n">yc</span><span class="p">,</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> <span class="c1">#Make plot</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../img/2DRelaxation_17_0.png" /></p>
+<p>These differences are useful to highlight, because, whether you use an iterative method or the linear algebra approach, in both cases you need to be aware that you are only trying to solve the potential at the blue points. At the other points the potential is either given or irrelevant. This determines how you define the loops in the iterative process, or the matrix you are trying to invert in the linear algebra case. </p>
+<p>In this notebook we will focus on the linear algebra approach.</p>
+<h2 id="the-structure-of-the-linear-algebra-problem">The Structure of the Linear Algebra Problem</h2>
+<p>If you stare at the lattice just depicted, you will notice that each of the nine blue points is different. Some of the points have two magenta neighbors, but others only have one or none. For some, the magenta neighbor is above and for others it is to the right. These differences change the structure of the linear algebra problem. </p>
+<p>To illustrate this, I'll figure out the discrete Laplace equation for <span class="arithmatex">\(V_{3,2}\)</span>, that is for <span class="arithmatex">\(i=3\)</span> and <span class="arithmatex">\(j=2\)</span>, in the case that <span class="arithmatex">\(\Delta x = \Delta y\)</span>. Beginning with </p>
+<div class="arithmatex">\[
+\frac{V_{4,2}-2V_{3,2}+V_{2,2}}{\Delta x^2} + \frac{V_{3,3}-2V_{3,2}+V_{3,1}}{\Delta y^2} =0, 
+\]</div>
+<p>I multiply through by <span class="arithmatex">\(\Delta x^2 = \Delta y^2\)</span> and move the known <span class="arithmatex">\(V_{4,2}\)</span> to the right to get</p>
+<div class="arithmatex">\[
+-4V_{3,2}+V_{2,2}+V_{3,3}+V_{3,1} = -V_{4,2}.
+\]</div>
+<p>Multiplying through by <span class="arithmatex">\(-1\)</span> (just to make the coefficient of the lattice point we are focusing on positive), this equation can be written in matrix form as </p>
+<div class="arithmatex">\[
+\begin{pmatrix}
+0 &amp; 0 &amp; -1 &amp; 0 &amp; -1 &amp; 4 &amp; 0 &amp; 0 &amp; -1
+\end{pmatrix}
+\begin{pmatrix}
+V_{1,1}\\ V_{2,1} \\ V_{3,1} \\ V_{1,2} \\ V_{2,2} \\ V_{3,2} \\ V_{1,3} \\ V_{2,3} \\ V_{3,3}
+\end{pmatrix} = V_{4,2}.
+\]</div>
+<p>Several comments are in order: notice that the column vector of unknown potentials has length nine. This matches the fact that we don't know the potential at nine lattice points. Also note that the unknown potentials are ordered in the vector following the zig-zag arrows in the figure above. Of those nine unknowns, only four showed up in this equation and that is why only four of the numbers in the coefficient row vector are non-zero. The row vector has format 1x9 and the column vector has format 9x1 and so their product properly gives a matrix of format 1x1, in other words, a simple number. The fifth potential, in this case a known boundary value, appears on the right hand side of the equation.</p>
+<p>Before trying to identify the pattern in general, write out a few more example equations:</p>
+<p><b> Exercise (b):</b> Take <span class="arithmatex">\(\Delta x = \Delta y\)</span> and consider the lattice depicted in the last subsection. Pick three lattice points and write out Laplace's equation for each of them. Simplify these equations until all the unknowns are on the left and all the known, boundary values, are on the right. </p>
+<p><b> Exercise (c):</b> Using the example at the beginning of this section, your results from <b>(b)</b>, and the ordering of lattice points discussed in the section "Construcing lattices in 2d", write a code that constructs the matrix equation equivalent to Laplace's equation on the 5x5 lattice from the last section. This will include a 9x9 matrix. Rather than trying to write out all of the equations before you begin coding, use the insights you came to about the different kinds of lattice points in <b>(b)</b> to figure out the pattern you need to fill the matrix with. [Hint: If you have trouble identifying the matrix equation, or get stuck on how to code it up, I do the slightly more intricate 6x6 lattice as an example below.] Here you used a particular ordering of the lattice points. What would it change about the linear algebra formulation of the problem if you were to change that ordering? </p>
+<h2 id="solving-and-plotting-laplaces-equation-on-a-2d-lattice">Solving and Plotting Laplace's Equation on a 2D Lattice</h2>
+<p>Of course, the number of lattice points need have nothing to do with the extension of the space that we are chopping up. Below I construct a lattice with six evenly spaced points along each axis of a square with side length one:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span> 
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s2">&quot;ko&quot;</span><span class="p">)</span> 
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../img/2DRelaxation_25_0.png" /></p>
+<p>Let's solve Laplace's equation on this lattice with the following boundary conditions: (i) along three of the walls, those at <span class="arithmatex">\(x=0\)</span>, <span class="arithmatex">\(x=1\)</span>, and at <span class="arithmatex">\(y=0\)</span>, the plate is grounded; and (ii) at <span class="arithmatex">\(y=1\)</span> the potential is <span class="arithmatex">\(V(x,y=1)=\sin(\pi x)\)</span>.</p>
+<p>First we use what we learned from <b>(c)</b> to setup the matrix equation, and then we solve it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="p">])</span>       <span class="c1">#Initialize the matrix we will eventually need to invert</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>         <span class="c1"># Fill the entries properly:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>             <span class="c1"># Set the diagonals to 4.</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>                <span class="c1"># Begin by setting all the neighbors to the diagonals to -1.</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>       <span class="c1"># This assumes that each lattice point has a neighbor to the </span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">:</span>               <span class="c1"># left and right, which is false and is corrected below.</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>               <span class="c1">#Once you are far enough into the lattice, always include -1</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>       <span class="c1"># for a lattice neighbor below the current site.</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">:</span>              <span class="c1">#As long you are not too far into the lattice, always include -1</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>       <span class="c1"># for a lattice neighbor above the current site.</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">13</span><span class="p">):</span>      <span class="c1">#For lattice sites neighboring the left and right boundaries </span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">4</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>             <span class="c1">#remove the left (or right, respectively) neighbor. </span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>         <span class="c1">#Here, the % operator gives the value of i mod 4. Like a clock</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>         <span class="c1"># with only 0,1,2,3 on it, it returns 0 for any multiple of 4.</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="nb">print</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="n">b</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>                            <span class="c1"># Initialize all boundary values to zero.</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="n">bndxs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>              <span class="c1">#Define x&#39;s along top boundary</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="n">b</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bndxs</span><span class="p">]</span> <span class="c1">#Update boundary V&#39;s along top boundary</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="n">IntVals</span><span class="o">=</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">M</span><span class="p">)</span><span class="nd">@b</span>    <span class="c1">#Solve for the internal potentials.</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="nb">print</span><span class="p">(</span><span class="n">IntVals</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[[ 4. -1.  0.  0. -1.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [-1.  4. -1.  0.  0. -1.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [ 0. -1.  4. -1.  0.  0. -1.  0.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [ 0.  0. -1.  4.  0.  0.  0. -1.  0.  0.  0.  0.  0.  0.  0.  0.]
+ [-1.  0.  0.  0.  4. -1.  0.  0. -1.  0.  0.  0.  0.  0.  0.  0.]
+ [ 0. -1.  0.  0. -1.  4. -1.  0.  0. -1.  0.  0.  0.  0.  0.  0.]
+ [ 0.  0. -1.  0.  0. -1.  4. -1.  0.  0. -1.  0.  0.  0.  0.  0.]
+ [ 0.  0.  0. -1.  0.  0. -1.  4.  0.  0.  0. -1.  0.  0.  0.  0.]
+ [ 0.  0.  0.  0. -1.  0.  0.  0.  4. -1.  0.  0. -1.  0.  0.  0.]
+ [ 0.  0.  0.  0.  0. -1.  0.  0. -1.  4. -1.  0.  0. -1.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0. -1.  0.  0. -1.  4. -1.  0.  0. -1.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0. -1.  0.  0. -1.  4.  0.  0.  0. -1.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0. -1.  0.  0.  0.  4. -1.  0.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0. -1.  0.  0. -1.  4. -1.  0.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0. -1.  0.  0. -1.  4. -1.]
+ [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0. -1.  0.  0. -1.  4.]]
+[0.         0.         0.         0.         0.         0.
+ 0.         0.         0.         0.         0.         0.
+ 0.58778525 0.95105652 0.95105652 0.58778525]
+[0.0363497  0.05881506 0.05881506 0.0363497  0.08658376 0.14009547
+ 0.14009547 0.08658376 0.16988987 0.27488758 0.27488758 0.16988987
+ 0.31808813 0.51467741 0.51467741 0.31808813]
+</code></pre></div>
+<p>The final output gives the electric potential at all of the internal points of the lattice. Our next step is to use this data to make a nice visualization of the result. In preparation, it is helpful to reshape the data so that instead of a long row of potential values, we have a clear correspondence between each potential value and a lattice point. The Python command reshape does exactly what we need, transforming a 1D array into a 2D array of specified shape:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">IntValsMat</span> <span class="o">=</span> <span class="n">IntVals</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c1">#In order to recombine with the boundary values and for visualization,</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>                                  <span class="c1"># reshape the solution to agree with the lattice shape.</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">IntValsMat</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">VSol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>     <span class="c1">#Combine the solution and boundary values into one output</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">VSol</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span><span class="n">IntValsMat</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">VSol</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>    
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">VSol</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[[0.0363497  0.05881506 0.05881506 0.0363497 ]
+ [0.08658376 0.14009547 0.14009547 0.08658376]
+ [0.16988987 0.27488758 0.27488758 0.16988987]
+ [0.31808813 0.51467741 0.51467741 0.31808813]]
+[[0.         0.         0.         0.         0.         0.        ]
+ [0.         0.0363497  0.05881506 0.05881506 0.0363497  0.        ]
+ [0.         0.08658376 0.14009547 0.14009547 0.08658376 0.        ]
+ [0.         0.16988987 0.27488758 0.27488758 0.16988987 0.        ]
+ [0.         0.31808813 0.51467741 0.51467741 0.31808813 0.        ]
+ [0.         0.58778525 0.95105652 0.95105652 0.58778525 0.        ]]
+</code></pre></div>
+<p>Finally, to visualize these data we will use a contour plot. The PyPlot library we have been using has a built-in countourf function. This function takes the points of the lattice, the potential above each point, and the number of contours as input. Here I have intentionally only plotted a few contours because I don't want to give the impression that we have solved the problem at more lattice points than we have.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">VSol</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../img/2DRelaxation_31_0.png" /></p>
+<p><b>Exercise (d):</b> Solve the matrix equation you setup in <b>(c)</b> and plot the potential, including boundary values, on a 2D contour plot. Use a small number of contours so as not to give the impression that you have found a more detailed solution than you have. If you wanted to give a higher resolution plot of the solution to this problem, what is the main ingredient in your code that you would need to change (pick just one)?</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/Hal-Haggard" target="_blank" rel="noopener">Hal Haggard</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_SVG"></script>
+      
+    
+  </body>
+</html>
