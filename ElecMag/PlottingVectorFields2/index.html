@@ -9,6 +9,10 @@
       
       
       
+        <link rel="prev" href="../PlottingVectorFields/">
+      
+      
+        <link rel="next" href="../EulersMethod/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -16,7 +20,7 @@
     
     
       
-        <title>Plotting Electric Fields in Python - Python Physics</title>
+        <title>Plotting Vector Fields 2 - Python Physics</title>
       
     
     
@@ -114,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Plotting Electric Fields in Python
+              Plotting Vector Fields 2
             
           </span>
         </div>
@@ -256,19 +260,21 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
         
           
           <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
@@ -282,7 +288,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             E&amp;M Notebooks
@@ -296,7 +302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../PlottingVectorFields.md" class="md-nav__link">
+      <a href="../PlottingVectorFields/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -314,10 +320,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../PlottingVectorFields2.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -326,6 +341,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -535,7 +551,7 @@
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1">#plt.savefig(&quot;vector_field.png&quot;, dpi=300)</span>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="png" src="../img/PythonJupyterPlottingVectorFields2_4_0.png" /></p>
+<p><img alt="png" src="../img/PlottingVectorFields2_4_0.png" /></p>
 <p>The trouble is that this doesn't look very good. This is because the magnitude of the field increases near the charges, the field vectors get very large and cross all over each other.</p>
 <p>An alternative strategy is to use the vector field arrows to indicate the direction of the field, but normalize them so that they are always the same length. This way they won't cross, but we lose the information about the magnitude of the electric field. We can add the magnitude information back in by making the background colored. I'll use a contour plot to do that. Let's also add a plot title to further clarify what we are doing.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">17</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">17</span><span class="n">j</span><span class="p">]</span>
@@ -559,7 +575,7 @@
 <a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="c1">#plt.savefig(&quot;vector_field.png&quot;, dpi=300)</span>
 <a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="png" src="../img/PythonJupyterPlottingVectorFields2_6_0.png" /></p>
+<p><img alt="png" src="../img/PlottingVectorFields2_6_0.png" /></p>
 <p>This looks much better, but still has problems. One issue is that the contours look very polygonal. This is because we aren't computing the field at enough points. We can fix it by increasing the number of points in mgrid. But, that will cover the whole region in arrows. </p>
 <p>The trick to fix that is to compute the field at all the points and only plot the vectors at a subset of the points. We can do the latter by "slicing" the arrays of field points and only keeping half of them. You can keep a fraction of the points in an array using the slicing :: , for example x[::3,::3] picks out every third point in the x array. </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">45</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">45</span><span class="n">j</span><span class="p">]</span>
@@ -583,7 +599,7 @@
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="c1">#plt.savefig(&quot;vector_field.png&quot;, dpi=300)</span>
 <a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="png" src="../img/PythonJupyterPlottingVectorFields2_8_0.png" /></p>
+<p><img alt="png" src="../img/PlottingVectorFields2_8_0.png" /></p>
 <p>We're getting there, but the magnitude information still isn't very helpful. It's for the same reason as before. The field gets huge right near the charges, but then drops off rapidly. The upshot is that all the contours are right near the charges. </p>
 <p>A way around this is to use the logarithm of the magnitude to make the contour plot. This flattens out the contour plot. This makes the information much easier to read, but should be accompanied by a warning for your reader!</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">48</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">48</span><span class="n">j</span><span class="p">]</span>
@@ -609,7 +625,7 @@
 <a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="c1">#plt.savefig(&quot;vector_field.png&quot;, dpi=300)</span>
 <a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="png" src="../img/PythonJupyterPlottingVectorFields2_10_0.png" /></p>
+<p><img alt="png" src="../img/PlottingVectorFields2_10_0.png" /></p>
 <p><b>Exercise (a):</b> Plot the electric vector field and magnitude of three charges sitting at the vertices of an equilateral triangle. Give two of the charges <span class="arithmatex">\(q=+1\)</span> and the last charge <span class="arithmatex">\(q=-1\)</span>. </p>
 <p><b>Exercise (b):</b> Plot the electric field of 4 charges sitting at the corners of a square with vertices <span class="arithmatex">\((-1,-1), (-1,1), (1,-1)\)</span>, and <span class="arithmatex">\((1,1)\)</span>. Setup the charges with alternate signs at each corner.</p>
 

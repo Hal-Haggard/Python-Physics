@@ -10,13 +10,15 @@
       
       
       
+        <link rel="next" href="../PlottingVectorFields2/">
+      
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
-        <title>Plotting Vector Fields in Python - Python Physics</title>
+        <title>Plotting Vector Fields - Python Physics</title>
       
     
     
@@ -114,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Plotting Vector Fields in Python
+              Plotting Vector Fields
             
           </span>
         </div>
@@ -256,19 +258,21 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
         
           
           <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
@@ -282,7 +286,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             E&amp;M Notebooks
@@ -293,10 +297,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../PlottingVectorFields.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -305,6 +318,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -317,7 +331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../PlottingVectorFields2.md" class="md-nav__link">
+      <a href="../PlottingVectorFields2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -519,7 +533,7 @@
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="png" src="../img/PythonJupyterPlottingVectorFields_3_0.png" /></p>
+<p><img alt="png" src="../img/PlottingVectorFields_3_0.png" /></p>
 <p>The linspace function makes an array of values starting at its first argument and ending at its second argument with as many values as its final argument. Copy and past the above code and try adjusting these parameters. You'll notice that quiver automatically adjusts the size of the arrows depending on how many you display. </p>
 <p>Example 2: Here's a less simple example where the components of the vector field depend on position, <span class="arithmatex">\(\vec{V}(x,y) = y \hat{x} - xy \hat{y}\)</span>. </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
@@ -533,7 +547,7 @@
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y$&#39;</span><span class="p">)</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
-<p><img alt="png" src="../img/PythonJupyterPlottingVectorFields_6_0.png" /></p>
+<p><img alt="png" src="../img/PlottingVectorFields_6_0.png" /></p>
 <p><b>Exercise (a):</b> Consider the <span class="arithmatex">\(xy\)</span> plane in polar coordinates <span class="arithmatex">\((r,\phi)\)</span>. Find the polar unit vector <span class="arithmatex">\(\hat{r}\)</span> in Cartesian coordinates. (N.B. This is a vector field and depends on which point of the plane you are at.) Plot your result and confirm that it makes sense. </p>
 <p><b>Exercise (b):</b> Same setup as in 1. Find the unit vector <span class="arithmatex">\(\hat{\phi}\)</span> in Cartesian coordinates. Plot your result and confirm that it makes sense. </p>
 <p><b>Excercise (c):</b> Take any of the three-dimensional vector fields that you have worked with in the first two problem sets or read about in the first chapter of Griffiths. Evaluate this vector field in the <span class="arithmatex">\(xy\)</span> plane, and then project it onto the <span class="arithmatex">\(xy\)</span> plane. Finally make a plot of your result using the tools above. (Here I want you to think through what it means to evaluate the vector field in the <span class="arithmatex">\(xy\)</span> plane and what it means to project it onto this plane. You should identify the mathematical procedures that accomplish each of these things and what they mean geometrically. Explain your procedures and what they mean briefly in English too.)</p>
